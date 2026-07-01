@@ -54,6 +54,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->resourceCreatePageRedirect('index')
+            ->resourceEditPageRedirect('index')
             ->authMiddleware([
                 Authenticate::class,
             ]);
