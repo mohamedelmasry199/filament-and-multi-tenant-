@@ -15,7 +15,7 @@ class ProductsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('name')->sortable()->searchable(isIndividual: true , isGlobal: true),
                 TextColumn::make('price')->sortable()->searchable(),
             ])->defaultSort('name', 'asc')
             ->filters([
