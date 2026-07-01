@@ -13,7 +13,9 @@ class ProductForm
             ->components([
                 TextInput::make('name')
                            ->required(),
-                TextInput::make('price')->required()->numeric(),
+                TextInput::make('price')->required()
+                                        ->numeric(),
+                                        // or u can use->rule('numeric'), any rule in laravel use it by this way
             ]);
     }
 }
