@@ -17,7 +17,7 @@ class ProductsTable
             ->columns([
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('price')->sortable()->searchable(),
-            ])
+            ])->defaultSort('name', 'asc')
             ->filters([
                 //
             ])
