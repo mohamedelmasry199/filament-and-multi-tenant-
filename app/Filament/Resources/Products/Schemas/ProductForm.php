@@ -19,11 +19,15 @@ class ProductForm
                 TextInput::make('price')
                            ->required()
                             ->prefix('EGP')
-                            ->numeric(),
+                            ->numeric(),// or u can use->rule('numeric'), any rule in laravel use it by this way
+
                 Radio::make('status')
                          ->options(ProductStatusEnum::class)
                          ->required(),
-                                        // or u can use->rule('numeric'), any rule in laravel use it by this way
+
+                Select::make('category_id')
+                      ->relationship('category', 'name')  //category->name of relationship
+
             ]);
     }
 }

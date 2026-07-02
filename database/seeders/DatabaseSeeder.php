@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -37,6 +38,15 @@ class DatabaseSeeder extends Seeder
             'name' => 'Product 3',
             'price' => 29.99,
             'description' => 'Product 3 description',
+        ]);
+        Category::create([
+            'name' => 'Category 1',
+        ]);
+        Category::create([
+            'name' => 'Category 2',
+        ]);
+        Category::create([
+            'name' => 'Category 3',
         ]);
     }
 }
