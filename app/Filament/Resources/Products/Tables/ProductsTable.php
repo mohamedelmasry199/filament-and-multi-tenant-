@@ -18,8 +18,9 @@ class ProductsTable
                 TextColumn::make('name')->sortable()->searchable(isIndividual: true , isGlobal: false),
                 TextColumn::make('price')
                             ->sortable()
-                            ->money('EGP',100) //dollar sign divide by 100
+                            ->money('EGP',100), //dollar sign divide by 100
                         // ==  ->formatStateUsing(fn(int $state): float =>$state/100) //if u need to control data returning,
+                TextColumn::make('status')
             ])->defaultSort('name', 'asc')
             ->filters([
                 //

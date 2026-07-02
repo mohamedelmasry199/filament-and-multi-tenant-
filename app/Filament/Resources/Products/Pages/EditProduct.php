@@ -23,7 +23,7 @@ class EditProduct extends EditRecord
          $data['price'] = $data['price'] / 100;
          return $data;
     }
-    protected function mutateFormDataBeforSave(array $data): array
+    protected function mutateFormDataBeforeSave(array $data): array
     {
          $data['price'] = $data['price'] * 100;
          return $data;
