@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use App\Enums\ProductStatusEnum;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -19,7 +20,7 @@ class ProductForm
                            ->required()
                             ->prefix('EGP')
                             ->numeric(),
-                Select::make('status')
+                Radio::make('status')
                          ->options(ProductStatusEnum::class)
                          ->required(),
                                         // or u can use->rule('numeric'), any rule in laravel use it by this way
