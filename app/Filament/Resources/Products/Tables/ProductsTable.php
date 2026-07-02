@@ -15,8 +15,11 @@ class ProductsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(isIndividual: true , isGlobal: true),
-                TextColumn::make('price')->sortable()->searchable(),
+                TextColumn::make('name')->sortable()->searchable(isIndividual: true , isGlobal: false),
+                TextColumn::make('price')
+                            ->sortable()
+                            ->money('EGP',100) //dollar sign divide by 100
+                        // ==  ->formatStateUsing(fn(int $state): float =>$state/100) //if u need to control data returning,
             ])->defaultSort('name', 'asc')
             ->filters([
                 //

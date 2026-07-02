@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Products\Pages;
 use App\Filament\Resources\Products\ProductResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 class EditProduct extends EditRecord
 {
@@ -15,5 +16,16 @@ class EditProduct extends EditRecord
         return [
             DeleteAction::make(),
         ];
+    }
+    #[Override]
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+         $data['price'] = $data['price'] / 100;
+         return $data;
+    }
+    protected function mutateFormDataBeforSave(array $data): array
+    {
+         $data['price'] = $data['price'] * 100;
+         return $data;
     }
 }
