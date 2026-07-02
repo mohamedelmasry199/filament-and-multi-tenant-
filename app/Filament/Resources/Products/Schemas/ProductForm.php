@@ -29,9 +29,13 @@ class ProductForm
 
                 // Select::make('category_id')
                 //       ->relationship('category', 'name'),  //category->name of relationship
+
               ModalTableSelect::make('category_id')
               ->relationship('category', 'name')
-              ->tableConfiguration(CategoriesTable::class)
+              ->tableConfiguration(CategoriesTable::class),
+              Select::make('tags')
+                    ->relationship('tags', 'name')
+                    ->multiple(),
             ]);
     }
 }

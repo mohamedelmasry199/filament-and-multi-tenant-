@@ -21,7 +21,9 @@ class ProductsTable
                             ->money('EGP',100), //dollar sign divide by 100
                         // ==  ->formatStateUsing(fn(int $state): float =>$state/100) //if u need to control data returning,
                 TextColumn::make('status'),
-                TextColumn::make('category.name')
+                TextColumn::make('category.name'),
+                TextColumn::make('tags.name'),
+
             ])->defaultSort('name', 'asc')
             ->filters([
                 //
