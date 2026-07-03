@@ -10,6 +10,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\SelectColumn;
@@ -78,8 +79,12 @@ class ProductsTable
                 }),
             ], layout: FiltersLayout::AboveContent)
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                ViewAction::make(),
+                EditAction::make()
+                    ->authorize('update'),
+                DeleteAction::make()
+                    ->visible(fn (): bool => auth()->user()?->email === 'admin@gmail.com')
+                    ->authorize('delete'),
                 Action::make('markFeatured')
                     ->label('Mark as Featured')
                     ->icon('heroicon-o-star')

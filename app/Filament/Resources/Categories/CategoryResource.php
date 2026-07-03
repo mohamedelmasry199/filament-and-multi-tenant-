@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Categories;
 
+use App\Filament\Resources\Categories\Pages\EditCategory;
 use App\Filament\Resources\Categories\Pages\ManageCategories;
+use App\Filament\Resources\Categories\RelationManagers\ProductsRelationManager;
 use App\Models\Category;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -73,10 +75,18 @@ class CategoryResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            ProductsRelationManager::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => ManageCategories::route('/'),
+            'edit' => EditCategory::route('/{record}/edit'),
         ];
     }
 }

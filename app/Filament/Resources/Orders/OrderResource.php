@@ -13,10 +13,13 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
+
+    protected static ?string $recordTitleAttribute = 'id';
 
     protected static ?string $navigationLabel = 'Orders';
 
@@ -37,6 +40,25 @@ class OrderResource extends Resource
     public static function table(Table $table): Table
     {
         return OrdersTable::configure($table);
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['user.name', 'product.name', 'price'];
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'User' => $record->user?->name,
+            'Product' => $record->product?->name,
+            'Price' => '$'.number_format($record->price, 2),
+        ];
+    }
+
+    public static function getGlobalSearchResultTitle(Model $record): string
+    {
+        return 'Order #'.$record->getKey();
     }
 
     public static function getRelations(): array
