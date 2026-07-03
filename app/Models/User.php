@@ -73,4 +73,8 @@ class User extends Authenticatable implements FilamentUser, PasskeyUser
     {
         return $this->email == 'admin@gmail.com';
     }
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

@@ -27,7 +27,7 @@ class ProductsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                ->sortable()
+               ->sortable()
                 ->searchable(isIndividual: true , isGlobal: false),
                 //not prefered other way:
                 // TextInputColumn::make('name')->rules(['required', 'max:255','min:3']),

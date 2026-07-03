@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -48,5 +49,32 @@ class DatabaseSeeder extends Seeder
         Category::create([
             'name' => 'Category 3',
         ]);
+        Order::create([
+            'user_id' => 1,
+            'product_id' => 1,
+            'price' => 10.99
+        ]);
+        order::create([
+            'user_id' => 1,
+            'product_id' => 2,
+            'price' => 19.99
+        ]);
+        order::create([
+            'user_id' => 1,
+            'product_id' => 2,
+            'price' => 19.99
+        ]);
+        order::create([
+            'user_id' => 1,
+            'product_id' => 2,
+            'price' => 19.99
+        ]);
+
+order::create([
+            'user_id' => 1,
+            'product_id' => 1,
+            'price' => 19.99
+        ]);
+
     }
 }
