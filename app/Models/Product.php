@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'price','status','category_id'];
+    protected $fillable = ['name', 'description', 'price','status','category_id','is_active'];
     protected $casts = [
         'status'=>ProductStatusEnum::class,
     ];

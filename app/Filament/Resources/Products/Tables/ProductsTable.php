@@ -10,7 +10,10 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -26,17 +29,24 @@ class ProductsTable
                 TextColumn::make('name')
                 ->sortable()
                 ->searchable(isIndividual: true , isGlobal: false),
+                //not prefered other way:
+                // TextInputColumn::make('name')->rules(['required', 'max:255','min:3']),
                 // ->url(fn(Product $record): string => ProductResource::getUrl('show', ['record' => $record])),
                 TextColumn::make('price')
                             ->sortable()
                             ->money('EGP',100), //dollar sign divide by 100
                         // ==  ->formatStateUsing(fn(int $state): float =>$state/100) //if u need to control data returning,
-                TextColumn::make('status')->badge(),
+                // TextColumn::make('status')->badge(),
+                SelectColumn::make('status')
+                ->searchableOptions()
+                ->options(ProductStatusEnum::class)
+                ->rules(['required']),
                 TextColumn::make('category.name'),
                 // ->url(fn($record): string => CategoryResource::getUrl('edit', ['record' => $record->category])),
                 TextColumn::make('tags.name')->badge(),
                 TextColumn::make('created_at')
                     ->since(),
+                ToggleColumn::make('is_active'),
 
             ])->defaultSort('name', 'asc')
             ->filters([
