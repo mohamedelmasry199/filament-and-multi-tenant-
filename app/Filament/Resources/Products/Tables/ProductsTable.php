@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Products\Tables;
 
 use App\Enums\ProductStatusEnum;
+use App\Filament\Resources\Categories\CategoryResource;
+use App\Filament\Resources\Products\ProductResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -21,14 +23,20 @@ class ProductsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(isIndividual: true , isGlobal: false),
+                TextColumn::make('name')
+                ->sortable()
+                ->searchable(isIndividual: true , isGlobal: false),
+                // ->url(fn(Product $record): string => ProductResource::getUrl('show', ['record' => $record])),
                 TextColumn::make('price')
                             ->sortable()
                             ->money('EGP',100), //dollar sign divide by 100
                         // ==  ->formatStateUsing(fn(int $state): float =>$state/100) //if u need to control data returning,
-                TextColumn::make('status'),
+                TextColumn::make('status')->badge(),
                 TextColumn::make('category.name'),
-                TextColumn::make('tags.name'),
+                // ->url(fn($record): string => CategoryResource::getUrl('edit', ['record' => $record->category])),
+                TextColumn::make('tags.name')->badge(),
+                TextColumn::make('created_at')
+                    ->since(),
 
             ])->defaultSort('name', 'asc')
             ->filters([
