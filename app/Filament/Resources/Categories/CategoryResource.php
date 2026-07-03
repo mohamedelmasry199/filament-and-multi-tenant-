@@ -37,9 +37,9 @@ class CategoryResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                       TextColumn::make('products_count')
-                       ->label('Products')
-                       ->counts('products')  //relation
+                TextColumn::make('products_count')
+                    ->label('Products')
+                    ->counts('products')  // relation
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

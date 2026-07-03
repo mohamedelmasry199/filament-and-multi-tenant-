@@ -52,28 +52,28 @@ class DatabaseSeeder extends Seeder
         Order::create([
             'user_id' => 1,
             'product_id' => 1,
-            'price' => 10.99
+            'price' => 10.99,
         ]);
-        order::create([
+        Order::create([
             'user_id' => 1,
             'product_id' => 2,
-            'price' => 19.99
+            'price' => 19.99,
         ]);
-        order::create([
+        Order::create([
             'user_id' => 1,
             'product_id' => 2,
-            'price' => 19.99
+            'price' => 19.99,
         ]);
-        order::create([
+        Order::create([
             'user_id' => 1,
             'product_id' => 2,
-            'price' => 19.99
+            'price' => 19.99,
         ]);
 
-order::create([
+        Order::create([
             'user_id' => 1,
             'product_id' => 1,
-            'price' => 19.99
+            'price' => 19.99,
         ]);
 
     }

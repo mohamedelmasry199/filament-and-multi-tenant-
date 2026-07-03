@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'price','status','category_id','is_active'];
+    protected $fillable = ['name', 'description', 'price', 'status', 'category_id', 'is_active'];
+
     protected $casts = [
-        'status'=>ProductStatusEnum::class,
+        'status' => ProductStatusEnum::class,
     ];
 
     public function category()
@@ -21,9 +22,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
     public function orders()
     {
         return $this->belongsToMany(Order::class);
     }
-
 }

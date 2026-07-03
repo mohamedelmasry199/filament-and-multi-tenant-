@@ -17,23 +17,23 @@ class ProductForm
         return $schema
             ->components([
                 TextInput::make('name')
-                           ->required(),
+                    ->required(),
                 TextInput::make('price')
-                           ->required()
-                            ->prefix('EGP')
-                            ->numeric(),// or u can use->rule('numeric'), any rule in laravel use it by this way
+                    ->required()
+                    ->prefix('EGP')
+                    ->numeric(), // or u can use->rule('numeric'), any rule in laravel use it by this way
 
                 Radio::make('status')
-                         ->options(ProductStatusEnum::class)
-                         ->required(),
+                    ->options(ProductStatusEnum::class)
+                    ->required(),
 
                 // Select::make('category_id')
                 //       ->relationship('category', 'name'),  //category->name of relationship
 
-              ModalTableSelect::make('category_id')
-              ->relationship('category', 'name')
-              ->tableConfiguration(CategoriesTable::class),
-              Select::make('tags')
+                ModalTableSelect::make('category_id')
+                    ->relationship('category', 'name')
+                    ->tableConfiguration(CategoriesTable::class),
+                Select::make('tags')
                     ->relationship('tags', 'name')
                     ->multiple(),
             ]);
