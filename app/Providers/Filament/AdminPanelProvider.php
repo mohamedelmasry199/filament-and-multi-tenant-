@@ -3,10 +3,14 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\ApiDataPage;
+use App\Filament\Pages\Tenancy\EditTeamProfile;
+use App\Filament\Pages\Tenancy\RegisterTeam;
 use App\Filament\Widgets\LatestOrdersWidget;
 use App\Filament\Widgets\ProductChartWidget;
 use App\Filament\Widgets\StatsOverviewWidget;
+use App\Models\Team;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -33,6 +37,13 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->registration()
+            ->profile()
+            ->multiFactorAuthentication([
+                AppAuthentication::make()->recoverable(),
+            ])
+            ->tenant(Team::class)
+            ->tenantRegistration(RegisterTeam::class)
+            ->tenantProfile(EditTeamProfile::class)
             ->colors([
                 'primary' => Color::Amber,
                 'success' => Color::Green,

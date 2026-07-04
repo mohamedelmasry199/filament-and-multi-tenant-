@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Models;
-
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Concerns\HasTeams;
 use Database\Factories\UserFactory;
+use Filament\Auth\MultiFactor\App\Concerns\InteractsWithAppAuthentication;
+use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -40,18 +42,13 @@ use Spatie\Permission\Traits\HasRoles;
  */
 #[Fillable(['name', 'email', 'password', 'current_team_id'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
-class User extends Authenticatable implements FilamentUser, PasskeyUser
+class User extends Authenticatable implements FilamentUser, HasAppAuthentication, HasTenants, PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasRoles, HasTeams, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable {
+    use HasFactory, HasRoles, HasTeams, InteractsWithAppAuthentication, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable {
         HasTeams::teams insteadof HasRoles;
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -61,9 +58,6 @@ class User extends Authenticatable implements FilamentUser, PasskeyUser
         ];
     }
 
-    /**
-     * Get the user's initials
-     */
     public function initials(): string
     {
         $initials = Str::initials($this->name, true);
@@ -75,11 +69,24 @@ class User extends Authenticatable implements FilamentUser, PasskeyUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->email == 'admin@gmail.com';
+        return match ($panel->getId()) {
+            'accountant' => true,
+            default => $this->email === 'admin@gmail.com',
+        };
     }
 
     public function order()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function getTenants(Panel $panel): Collection
+    {
+        return $this->teams;
+    }
+
+    public function canAccessTenant(Model $tenant): bool
+    {
+        return $this->teams()->whereKey($tenant)->exists();
     }
 }
